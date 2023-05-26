@@ -8,7 +8,7 @@ const SessoesSchema = new Schema({
         type : Schema.Types.ObjectId,
         ref : 'usuarios'
     }
-},{
+}, {
     timestamps : true
 })
 
