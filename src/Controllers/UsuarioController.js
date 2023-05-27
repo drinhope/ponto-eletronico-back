@@ -6,7 +6,9 @@ class UsuarioController{
         try {
             const usuario = await UsuarioModel.create(req.body);
 
-            res.status(200).json(usuario);
+            const { senha, ...novoUsuario } = usuario.toObject();
+
+            res.status(200).json(novoUsuario);
         } catch (error) {
             res.status(500).json({ message: "Deu ruim aqui!!!", error: error.message });
         }
@@ -24,10 +26,17 @@ class UsuarioController{
 
     async update(req, res){
         try {
-            const {id} = req.params;
+            const { id } = req.params;
+            const usuariosEncontrado = await UsuarioModel.findById(id);
 
-            const usuario = await UsuarioModel.findByIdAndUpdate(id, req.body, {new : true});
-            res.status(200).json(usuario);
+            if(!usuariosEncontrado)
+                return res.status(404).json({ message: "Usuario não encontrado" });
+            
+            const usuario = await usuariosEncontrado.set(req.body).save();
+            
+            const { senha, ...novoUsuario } = usuario.toObject();
+
+            res.status(200).json(novoUsuario);
         } catch (error) {
             res.status(500).json({ message: "Deu ruim aqui!!!", error: error.message });
         }
@@ -35,10 +44,15 @@ class UsuarioController{
 
     async delete(req, res){
         try {
-            const {id} = req.params;
+            const { id } = req.params;
+            const usuariosEncontrado = await UsuarioModel.findById(id);
 
-            await UsuarioModel.findByIdAndDelete(id);
+            if(!usuariosEncontrado)
+                return res.status(404).json({ message: "Usuario não encontrado" });
+        
 
+            await usuariosEncontrado.deleteOne();
+            
             res.status(200).json({"mensagem": "Usuário deletado com sucesso!"});
         } catch (error) {
             res.status(500).json({ message: "Deu ruim aqui!!!", error: error.message });
