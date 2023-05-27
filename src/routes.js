@@ -7,7 +7,6 @@ const SessoesValidator = require("./Validators/SessoesValidator");
 const AuthValidator = require("./Validators/AuthValidator");
 const verificarJwt = require("./Middlewares/verificarJwt");
 
-
 const rotas = Router();
 
 // Usuarios
@@ -24,5 +23,7 @@ rotas.delete('/sessoes/:id_usuario', verificarJwt, SessoesValidator.destroy, Ses
 // Auth
 rotas.post('/login', AuthValidator.login, AuthController.login);
 
+// Autenticação
+rotas.post('/login', AuthValidator.login, AuthController.login);
 
 module.exports = rotas;
