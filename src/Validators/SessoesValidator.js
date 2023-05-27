@@ -10,7 +10,7 @@ const { validateRequest } = require("zod-express-middleware");
 
     const destroy = validateRequest({
         params: z.object({
-            id: z.custom(mongoose.isValidObjectId, "O id da sessão não é válido"),
+            id_usuario: z.custom(mongoose.isValidObjectId, "O id do usuário não é válido"),
         }),
     });
 

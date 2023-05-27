@@ -40,13 +40,14 @@ class SessoesController{
 
     async delete(req, res){ // O if funciona exatamente da mesma forma que no vídeo, só adaptei as funções para as sessões, mas a lógica e os parâmetros são exatamente os mesmos
         try {    
-            const { id } = req.params;
-            const sessaoEncontrada = await SessoesModel.findById(id);
+            const { id_usuario } = req.params;
+            
+            const sessaoEncontrada = await SessoesModel.findOne({ id_usuario, });
 
             if(!sessaoEncontrada)
                 return res.status(404).json({ message: "Sessão não encontrada" });
         
-            await SessoesModel.findByIdAndDelete(id);
+            await SessoesModel.deleteOne();
 
             res.status(200).json({"mensagem": "Sessão deletada com sucesso!"});
         } catch (error) {
