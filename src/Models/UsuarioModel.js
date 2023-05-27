@@ -4,13 +4,19 @@ const Schema = mongoose.Schema;
 
 const UsuarioSchema = new Schema ({
     // O ID é atribuído automaticamente pelo mongoose
-    nome : String,
+    nome: {
+        type: String,
+        unique: true,
+    },
     nickname : String,
-    email : String,
+    email: {
+        type: String,
+        unique: true,
+    },
     jogo : String,
     elo : String,
-    senha : String
-})
+    senha : String,
+});
 
 const UsuarioModel = mongoose.model('usuarios', UsuarioSchema);
 
