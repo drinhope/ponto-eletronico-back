@@ -10,7 +10,10 @@ const UsuarioSchema = new Schema ({
         type: String,
         unique: true,
     },
-    nickname: String,
+    nickname: {
+        type: String,
+        unique: true,
+    },
     email: {
         type: String,
         unique: true,
