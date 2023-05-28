@@ -6,7 +6,8 @@ const SessoesSchema = new Schema({
     // O ID é atribuído automaticamente pelo mongoose
     id_usuario : {
         type : Schema.Types.ObjectId,
-        ref : 'usuarios'
+        ref : 'usuarios',
+        unique: true
     }
 }, {
     timestamps : true
