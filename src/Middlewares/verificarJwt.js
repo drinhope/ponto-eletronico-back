@@ -17,10 +17,11 @@ function verificarJwt(req, res, next) {
         return res.status(403).json({ message: "JWT Token não encontrado" });
 
     jwt.verify(token, process.env.JWT_SECRET, (err, usuario) => {
-        if(err)
-            return res.status(403).json({ message: "JWT Token inválido" });
+        if(err) return res.status(403).json({ message: "JWT Token inválido" });
 
         req.usuarioId = usuario._id;
+
+        console.log(req.usuarioId);
 
         next();
     });
