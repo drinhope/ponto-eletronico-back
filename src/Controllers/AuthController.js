@@ -18,9 +18,7 @@ class AuthController {
 
             const { senha: hashedSenha, ...usuario } = usuarioEncontrado.toObject();
 
-            const token = jwt.sign({
-                usuario
-            }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRE }); 
+            const token = jwt.sign({usuario}, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRE }); 
 
             res.status(200).json({ token });
         } catch (error) {
