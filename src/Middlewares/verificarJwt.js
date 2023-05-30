@@ -8,7 +8,7 @@ function verificarJwt(req, res, next) {
 
     const [bearer, token] = authHeader.split(" ");
 
-    //console.log({ bearer, token }); // Mostra no terminal o Bearer e o Token, apenas para fins de teste
+    // console.log({ bearer, token }); // Mostra no terminal o Bearer e o Token, apenas para fins de teste
 
     if(!/^Bearer$/.test(bearer))
         return res.status(403).json({ message: "Header de autorização mal formatado" });
@@ -19,9 +19,9 @@ function verificarJwt(req, res, next) {
     jwt.verify(token, process.env.JWT_SECRET, (err, usuario) => {
         if(err) return res.status(403).json({ message: "JWT Token inválido" });
 
-        req.usuarioId = usuario._id;
+        req.usuarioId = usuario.usuario._id;
 
-        console.log(req.usuarioId);
+        // console.log(req.usuarioId);
 
         next();
     });
